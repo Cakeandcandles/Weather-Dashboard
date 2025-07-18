@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Dashboard</title>
+  <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+  <h1>Weather Dashboard</h1>
+  <form id="search-form">
+    <input type="text" id="city-input" placeholder="Enter city" required />
+    <button type="submit">Search</button>
+  </form>
+  <div id="weather-result"></div>
+  <script>
+    document.getElementById("search-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const city = document.getElementById("city-input").value;
+    const res = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+    const raw = await res.json();
+    const data = JSON.parse(raw);
+
+    const resultDiv = document.getElementById("weather-result");
+
+    if (data.main) {
+        resultDiv.innerHTML = `
+            <h2>${data.name}</h2>
+            <p>${data.weather[0].description}</p>
+            <p>🌡️ Temp: ${data.main.temp} °C</p>
+            <p>💧 Humidity: ${data.main.humidity}%</p>
+            <p>💨 Wind: ${data.wind.speed} m/s</p>
+        `;
+    } else {
+        resultDiv.innerHTML = `<p>City not found.</p>`;
+    }
+});
+
+  </script>
+</body>
+</html>
