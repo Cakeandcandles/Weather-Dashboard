@@ -1,0 +1,2 @@
+This is a Weather dashboard that displays the current weather, temp, humidity, and wind in the city that the user entered. The backend is built in Rust using the axum framework, and it runs on local host by default, but that can be configured manually. 
+It uses openweathermap.org to get the free API key, and then the JS fetches that data from the Rust backend. To run, clone this repo and add your own private API key to the .env file, and then run 'cargo run' in the terminal, and it should run on local host.
